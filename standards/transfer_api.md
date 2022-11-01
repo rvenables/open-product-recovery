@@ -105,7 +105,7 @@ The more advanced technical solutions, such as API integrations, do not have thi
 3. **Lack of standards and reuse**: Each API is different, so every integration is unique and non-reusable.
 4. **Painful authorization model**: Many existing APIs assume that every API user must have an identity that is registered with the provider of the API, and they often assume that API user ids must originate from an identity system managed by the API provider themselves.
 5. **Restrictive trust model**: Most existing authorization models imply a particular trust model - a donor can only trust recipients that the donor knows, because the API requires prior knowledge of a user to authenticate them. However, this does not capture an important aspect of human-to-human donation networks: the friend of a friend model. In real life, human donors trust information about donations to organizations that re-share that information, and eventually connect a recipient directly to the donor. This cannot be done automatically in most existing APIs, because there is no way of authenticating the unfamiliar recipient against the donor's API without additional human intervention.
-6. **Push model**: Many food donation APIs are built on a donation-push model, wherein available donations must be posted via API to a large recipient organization. In practice, it is often particularly difficult for donor organizations to use this sort of model, because donor systems tend to be built on top of whatever inventory database is used to run the day-to-day operations
+6. **Push model**: Many food donation APIs are built on a donation-push model, wherein available donations must be posted via API to a large recipient organization. In practice, it is often particularly difficult for donor organizations to use this sort of model, because donor systems tend to be built on top of whatever inventory database is used to run the day-to-day operations.
 
 # 2. Design Objectives
 
@@ -128,7 +128,7 @@ Some real-world organizations will *re-share* offers by creating an offer feed t
 
 ## 3.1. Donation Offer
 
-A donation offer is a collection of goods that exists at some physical location. Although these offers are frequently referred to as "donations" in this and other related documents, a payment or other exchange may be necessary for an organization to take possession of an offer, but these transactions are out of scope for this design . The attributes and precise specification for describing a Donation Offer can be found in [The Open Product Recovery Description Format](opr_description_format.md).
+A donation offer is a collection of goods that exists at some physical location. Although these offers are frequently referred to as "donations" in this and other related documents, a payment or other exchange may be necessary for an organization to take possession of an offer, but these transactions are out of scope for this design . The attributes and precise specification for describing a Donation Offer can be found in [The Open Product Recovery Description Format](description_format.md).
 
 ## 3.2. Organizations
 
@@ -245,7 +245,7 @@ If an organization refuses a request because the requesting organization has fai
 
 ### 6.2.1. Authenticating & Authorizing Requests
 
-Requests must be authenticated to determine that this is a legitimate request. Then the requested must be authorized by:
+Requests must be authenticated to determine legitimacy. Then the requested must be authorized by:
 
 1. Optionally checking that the token contains the correct scope claim for the current operation.
 2. Checking that the issuing organization has permission for the requested operation.
@@ -327,7 +327,7 @@ The issuing organization must be checked for authorization to succeed. The type 
 
 #### 6.2.2.1. Standard Requests
 
-Each organization must maintain a access control list of organizations that are allowed to make requests to its API endpoints. The recipient organization URL specified in the authorization token must exactly match an entry in the access control list for the request to succeed. If the recipient organization URL is not in the access control list, the request must fail with an HTTP 403 status (forbidden), with an optional human-readable error message explaining how to gain access to the access control list.
+Each organization must maintain an access control list of organizations that are allowed to make requests to its API endpoints. The recipient organization URL specified in the authorization token must exactly match an entry in the access control list for the request to succeed. If the recipient organization URL is not in the access control list, the request must fail with an HTTP 403 status (forbidden), with an optional human-readable error message explaining how to gain access to the access control list.
 
 The organization is entirely responsible for deciding how to implement this access control list, but an access control list of some sort must be maintained. API endpoints must never allow requests from wholly unknown organizations.
 
@@ -430,7 +430,7 @@ The JWT access tokens used in this specification must be signed according to the
 1. Create a JSON object containing a collection of claims
 2. Pass that object, a private key, and a signing algorithm to a utility function
 
-This is the method that should be used to encode and sign all access tokens used by this standard. Any signing algorithm supported by JWT may be used, but `HS256` is recommended, since it is most widely supported.
+This is the method that should be used to encode and sign all access tokens used by this standard. Any signing algorithm supported by JWT may be used, but `HS256` is recommended, since it is the most widely supported.
 
 Signing keys are generated in pairs, a public key and a private key. The private key used for token signatures must have its accompanying public key listed in the Java Web Signature Key Set given by the `jwks` parameter of the [organization description file](#53-organization-description-file).
 
@@ -521,7 +521,7 @@ In all `listOffers` responses, regardless of format, there are two fields in the
 
 An offering organization should make a best effort to only include offers that can be accepted by the current recipient organization.
 
-An offering organization may choose to show any subset of its offers to any receipient organization.
+An offering organization may choose to show any subset of its offers to any recipient organization.
 
 #### 6.3.2.7. `listProducts` HTTP Response Directives
 

@@ -2,7 +2,7 @@
 
 This defines a standard JSON format for describing food (or other consumer products) that is available for transfer between organizations. This design doc does not specify how this standard format should be used, but it was designed as the primary datamodel for the transfer protocol described in Design Doc Proposal - The Open Product Recovery Transfer API.
 
-- **Version:** `0.5.0`
+- **Version:** `0.5.1`
 - **Last Updated:** October 10, 2022
 - **Drafted by:** John Richter & Mike Ryckman
 - **Initial draft:** May 18, 2022
@@ -38,15 +38,15 @@ This defines a standard JSON format for describing food (or other consumer produ
 
 Today, there is no common language for describing food (or other products) that is available for donation or other recovery. This makes it very difficult to establish automated communication between donors and recipients. Today, if a donor (say, a grocery store) wishes to announce an available donation to a recipient (say, a food bank), this communication is done via one of three methods:
 
-  * **Implicit** : There is no realtime communication about donations at all. Rather, telephone, email or face-to-face communication is used to set up a recurring pickup schedule. Recipients have no idea what they're actually receiving until they see it on the loading dock.
+  * **Implicit** : There is no realtime communication about donations at all. Rather, telephone, email, or face-to-face communication is used to set up a recurring pickup schedule. Recipients have no idea what they're actually receiving until they see it on the loading dock.
   * **Human-to-human** : Communication is done via natural language communication over email or telephone.
-  * **Bespoke API**: Communication is done automatically, through a custom API integration. There is no standard data format or protocol for communication over these APIs, so each of these integrations must be custom built.
+  * **Bespoke API**: Communication is done automatically, through a custom API integration. There is no standard data format or protocol for communication over these APIs, so each of these integrations must be custom-built.
 
 All 3 of these existing methods entail significant inefficiency and expense. By establishing a common protocol, we can develop libraries to parse and process records in a common format, greatly lowering the complexity and expense of establishing automated communication between donors and recipients, ensuring that the work done to build a first automated integration will then be reusable for all future integrations.
 
 # 2. Concepts
 
-This specification is primarily intended to describe transactions in the economy of excess edible food and food insecurity. A typical transaction in that economy is a food donation, where excess food from a for-profit organization is offered to a charitable organization to prevent it going to waste. However, there are many other very transactions in this space that have similar characteristics and related intent:
+This specification is primarily intended to describe transactions in the economy of excess edible food and food insecurity. A typical transaction in that economy is a food donation, where excess food from a for-profit organization is offered to a charitable organization to prevent it from going to waste. However, there are many other very transactions in this space that have similar characteristics and related intent:
 
   * A restaurant offers excess food to another company for resale at a lower price
   * A produce supplier offers a truckload of produce to a distant, high-capacity food bank for a small fee
@@ -119,7 +119,7 @@ A measurement is a data structure specifying some physical measurement of an ite
 | Unit Type                | Supported Units                                                                                     | Supported Dimensions                          | Sums in collections |
 | ------------------------ | --------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------------- |
 | Physical extent          | centimeter<br/>foot<br/>inch<br/>meter yard                                                         | length<br/>depth<br/>width                    | no                  |
-| Liquid volume            | fluidonce<br/>gallon<br/>liter                                                                      | volume-liquid                                 | yes                 |
+| Liquid volume            | fluidounce<br/>gallon<br/>liter                                                                      | volume-liquid                                 | yes                 |
 | Spatial volume           | cubiccentimeter<br/>cubicfoot<br/>cubicinch<br/>cubicmeter<br/>pallet[^1]<br/>shippingcontainer[^2] | volume                                        | yes                 |
 | Weight                   | gram<br/>kilogram<br/>ounce pound                                                                   | weight                                        | yes                 |
 | Temperature Requirements | celsius<br/>fahrenheit                                                                              | temperature-max<br/>temperature-min<br/>ideal | no                  |
@@ -291,6 +291,6 @@ Sometimes an organization will change its mind about the minimum size of an acce
 
 **Would donors be held accountable for the accuracy of an offer's (weight/description/photos/etc), and if so how?**
 
-Yes - they're held accountable via the same social and legal mechanisms that enforce honesty in the real world. Organizations that are consistently inaccurate in their food descriptions should be penalized in exactly the same way as organizations that made misleading verbal or written claims about their donations. Organizations that use the OPR Transfer API are encouraged to revoke access to organizations that engage in abusive behavior.
+Yes - they're held accountable via the same social and legal mechanisms that enforce honesty in the real world. Organizations that are consistently inaccurate in their food descriptions should be penalized in exactly the same way as organizations that make misleading verbal or written claims about their donations. Organizations that use the OPR Transfer API are encouraged to revoke access to organizations that engage in abusive behavior.
 
 And, just as in the real world, honest mistakes will be understood and dealt with graciously.
